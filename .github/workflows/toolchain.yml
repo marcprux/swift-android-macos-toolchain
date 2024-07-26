@@ -1,4 +1,4 @@
-name: skip-kit
+name: toolchain
 on:
   push:
     branches: '*'
@@ -20,8 +20,10 @@ jobs:
       uses: actions/checkout@v4
     - name: Install Build Tools
       run: brew install cmake ninja autoconf automake libtool pkg-config git-lfs
-    - name: Install NDK
-      run: brew install --cask android-ndk
+    - name: Setup Android Tools
+      uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: r26d
     - name: Check NDK
       run: ${ANDROID_HOME:-$HOME/Library/Android/sdk}/ndk/26.3.11579264
     - name: Clone Swift
