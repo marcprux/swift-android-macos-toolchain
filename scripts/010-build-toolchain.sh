@@ -1,4 +1,4 @@
-#!/bin/bash -vex
+#!/bin/bash -ex
 
 echo "Building Toolchain…"
 

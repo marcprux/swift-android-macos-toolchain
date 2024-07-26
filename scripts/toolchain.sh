@@ -1,4 +1,4 @@
-#!/bin/bash -vex
+#!/bin/bash -ex
 
 SCRIPTS=$(dirname $0)
 ROOTDIR=${SCRIPTS}/..
