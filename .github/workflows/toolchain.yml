@@ -1,0 +1,31 @@
+name: skip-kit
+on:
+  push:
+    branches: '*'
+    tags: "[0-9]+.[0-9]+.[0-9]+"
+  schedule:
+    - cron:  '0 8,22 * * *'
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build-swift-toolchain:
+    runs-on: macos-14
+
+    steps:
+    - name: Clone scripts
+      uses: actions/checkout@v4
+    - name: Install Build Tools
+      run: brew install cmake ninja autoconf automake libtool pkg-config git-lfs
+    - name: Install NDK
+      run: brew install --cask android-ndk
+    - name: Check NDK
+      run: ${ANDROID_HOME:-$HOME/Library/Android/sdk}/ndk/26.3.11579264
+    - name: Clone Swift
+      run: ./scripts/001-fetch-swift.sh
+    - name: Build Toolchain
+      run: ./scripts/010-build-toolchain.sh
+
