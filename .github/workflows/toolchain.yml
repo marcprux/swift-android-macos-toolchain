@@ -13,6 +13,10 @@ permissions:
 
 jobs:
   build-swift-toolchain:
+    strategy:
+      matrix:
+        swift_branch: ['release/5.10', 'release/6.0', 'main']
+
     runs-on: macos-14
 
     steps:
@@ -30,10 +34,12 @@ jobs:
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
     - name: Clone Swift
-      run: ./scripts/001-fetch-swift.sh
-    - name: Build Toolchain
-      run: ./scripts/010-build-toolchain.sh
+      run: scripts/001-fetch-swift.sh
       env:
+        SWIFT_BRANCH: ${{ matrix.swift_branch }}
+    - name: Build Toolchain
+      run: scripts/010-build-toolchain.sh
+      env:
+        SWIFT_BRANCH: ${{ matrix.swift_branch }}
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
 
