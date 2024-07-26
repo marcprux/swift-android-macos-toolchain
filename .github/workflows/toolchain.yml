@@ -21,13 +21,19 @@ jobs:
     - name: Install Build Tools
       run: brew install cmake ninja autoconf automake libtool pkg-config git-lfs
     - name: Setup Android Tools
+      id: setup-ndk
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r26d
     - name: Check NDK
-      run: ${ANDROID_HOME:-$HOME/Library/Android/sdk}/ndk/26.3.11579264
+      run: ls ${ANDROID_NDK_HOME}
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
     - name: Clone Swift
       run: ./scripts/001-fetch-swift.sh
     - name: Build Toolchain
       run: ./scripts/010-build-toolchain.sh
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
 

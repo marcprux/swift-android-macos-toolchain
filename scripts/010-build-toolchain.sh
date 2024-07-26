@@ -14,7 +14,7 @@ swift/utils/build-script \
     --skip-build-benchmarks \
     --skip-test-osx \
     --android \
-    --android-ndk ${ANDROID_HOME:-$HOME/Library/Android/sdk}/ndk/26.3.11579264 \
+    --android-ndk ${ANDROID_NDK_HOME} \
     --android-arch aarch64 \
     --android-api-level 29 \
     --stdlib-deployment-targets=android-aarch64 \
