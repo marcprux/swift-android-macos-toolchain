@@ -16,9 +16,10 @@ jobs:
     strategy:
       matrix:
         swift_branch: ['release/5.10', 'release/6.0', 'main']
+        os: ['macos-13', 'macos-14']
       fail-fast: false
 
-    runs-on: macos-13
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Clone scripts
